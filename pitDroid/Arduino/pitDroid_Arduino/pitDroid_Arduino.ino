@@ -3,6 +3,7 @@
 
 VarSpeedServo servo1; VarSpeedServo servo2;
 String inputString = "";         // a string to hold incoming data
+unsigned int cont=0;
 
 
 
@@ -21,8 +22,6 @@ void loop()
 
   signed int vel;
   unsigned int pos;
-
-
   
   if (Serial.available()) 
   {
@@ -55,6 +54,28 @@ void loop()
         pos = servo2.read();
         servo2.write(pos, 255, false);       
       } 
+    }
+    else if(inputString.endsWith("o"))
+    {
+      cont++;
+      if (cont >= 50)
+      {
+        pos = servo1.read();
+        servo1.write(90, 10, true);        
+        pos = servo2.read();
+        servo2.write(90, 10, true);
+        cont = 0;
+ 
+      }
+      else
+      {
+        pos = servo1.read();
+        servo1.write(pos, 255, false);        
+        pos = servo2.read();
+        servo2.write(pos, 255, false);
+      }
+      
+            
     }
     inputString = "";
 

@@ -11,7 +11,7 @@ def set_res(cap, x,y):
 
 ser = serial.Serial(2, 9600)  #abre serial COM3
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 #can be any of those
 #   160.0 x 120.0
@@ -61,8 +61,8 @@ while(True):
 #        cv2.circle(frame,(x+w/2,y+y/2), 2, (0,0,255), 3, 8,0)
         cv2.circle(frame,(frame_w/2,frame_h/2), 2, (255,0,0), 3, 8,0) #ponto azul no centro
         
-        cv2.circle(frame,(faces[0,0],faces[0,1]), 2, (255,255,0), 3, 8,0) #ponto azul no centro
-        cv2.circle(frame,(faces[0,0]+faces[0,2]/2,faces[0,1]+faces[0,3]/2), 2, (255,255,0), 3, 8,0) #ponto azul no centro
+#        cv2.circle(frame,(faces[0,0],faces[0,1]), 2, (255,255,0), 3, 8,0) #ponto azul no centro
+#        cv2.circle(frame,(faces[0,0]+faces[0,2]/2,faces[0,1]+faces[0,3]/2), 2, (255,255,0), 3, 8,0) #ponto azul no centro
 
  #        tamanho total de deslocamento
 #        tamanho da tela - tamanho do frame do rosto
@@ -85,7 +85,6 @@ while(True):
     cv2.imshow('frame', frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
-#    if cv2.waitKey(1) & 0xFF == ord('s'):
 
      
     if ([i for i in faces]):     #testa se tem rosto detectado:                                #testa se string está vazia
@@ -97,7 +96,8 @@ while(True):
         
         ser.write(str(err_x) + "x!")        #otimizacao: não enviar string, mas inteiro direto
         ser.write(str(err_y) + "y!")        #otimizacao: não enviar string, mas inteiro direto
-
+    else:
+        ser.write("o!")        
                   
 '''teste com serial byte a byte
 #        if err_x < 0:
